@@ -1,0 +1,38 @@
+<h1 class="text-center">
+  {{titulo}}</h1>
+<form class="form-horizontal">
+
+
+  <div class="form-group">
+    <label class=" control-label" for="Titulo">Titulo</label>
+    <input id="Titulo" name="Titulo" type="text" [(ngModel)]="nota.titulo" placeholder="Titulo" class="form-control input-md"
+      required="">
+  </div>
+
+  <div class="form-group">
+    <label class="control-label" for="Conteudo">Conteudo</label>
+    <textarea class="form-control" id="Conteudo" name="Conteudo" [(ngModel)]="nota.nota"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label" for="Status">Status</label>
+    <select id="Status" name="Status" class="form-control" [(ngModel)]="nota.status">
+      <option *ngFor="let status of statusList" [selected]="status === nota.status" [value]="status">
+        {{status}}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label class="checkbox-inline" for="Privada-0">
+      <input type="checkbox" name="Privada" id="Privada-0" value="1" [(ngModel)]="nota.isPublica" [checked]="nota.isPublica"> nota é publica?
+    </label>
+  </div>
+
+  <div class="text-center">
+    <button type="button" (click)="print()" class="btn btn-success">Salvar</button>
+    <button type="button" class="btn btn-danger">Cancelar</button>
+
+  </div>
+
+</form>

@@ -4,17 +4,26 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { NotaComponent } from './nota/nota.component';
+import { NotaFormComponent } from './nota/nota-form/nota-form.component';
+
+import {NotaService} from './nota/nota.service';
+
+import { routing } from './app.routes'
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotaComponent,
+    NotaFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    routing
   ],
-  providers: [],
+  providers: [NotaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
