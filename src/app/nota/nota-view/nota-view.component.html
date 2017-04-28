@@ -1,0 +1,22 @@
+
+  <h1 class=" text-center">{{nota.titulo}}</h1>
+  <div class="col-sm-12">
+
+    <div >
+<hr />
+      <p>{{nota.nota}}</p>
+<hr />
+      <p>Data da primeira visualização: {{nota.primeiraVisualizacao}}</p>
+      <p>Numero de visualizações: {{nota.numeroVisualizacao}}</p>
+      <p>Visibilidade: {{(nota.isPublica)? 'publica' : 'privada'}}</p>
+      <p>Status da nota: {{nota.status}}</p>
+
+
+    </div>
+
+  </div>
+
+  <div class="text-center">
+    <button type="button" [routerLink]="['/notas', nota.id]" class="btn btn-success">Editar</button>
+  </div>
+

@@ -12,7 +12,8 @@ import { Nota } from '../nota';
 export class NotaFormComponent implements OnInit {
   titulo: string;
   nota: Nota = new Nota();
-  statusList: string[] = ["ativa","inativa", "rascunho"];
+  statusList: string[] = [];
+  erros: string[] =[];
 
   constructor(
     private notaService: NotaService,
@@ -20,9 +21,7 @@ export class NotaFormComponent implements OnInit {
     private route: ActivatedRoute,
   ) { }
 
-  print(){
-    console.log(this.nota);
-  }
+
 
   ngOnInit() {
 
@@ -31,8 +30,13 @@ export class NotaFormComponent implements OnInit {
 
       this.titulo = id ? 'Editar Nota' : 'Nova Nota';
 
+      this.notaService.getStatus().subscribe(
+        status => this.statusList = status
+      );
+
       if (!id)
         return;
+
 
       this.notaService.getNota(id)
         .subscribe(
@@ -45,6 +49,50 @@ export class NotaFormComponent implements OnInit {
           }
         });
     });
+  }
+
+  salvar() {
+
+    this.erros = this.nota.validar();
+
+    if(this.erros.length !== 0)
+    return;
+
+    console.log(this.nota);
+    if (this.nota.id) {
+      this.atualizar();
+    } else {
+      this.criar();
+    }
+  }
+
+  criar() {
+    this.notaService.addNota(this.nota).subscribe(
+      nota => {
+        console.log(`nota ${nota} salva com sucesso`);
+        this.router.navigate(['notas']);
+      },
+      error => {
+        console.log(`Erro ao salvar a nota! ${error}`);
+        this.router.navigate(['notas']);
+      }
+
+    )
+  }
+
+  atualizar() {
+    this.notaService.updateNota(this.nota).subscribe(
+      nota => {
+        console.log(`nota atualizada com sucesso`);
+        this.router.navigate(['notas']);
+      },
+      error => {
+        console.log(`Erro ao salvar a nota! ${error}`)
+        this.router.navigate(['notas']);
+
+      }
+
+    )
   }
 
 }

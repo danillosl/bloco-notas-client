@@ -6,39 +6,52 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
 
+import { Nota } from './nota';
+
 @Injectable()
 export class NotaService {
 
-  private url: string = "http://localhost:3000/notas";
+  private url: string = "http://10.1.1.61:3000/notas";
 
   constructor(private http: Http) { }
 
-  getNotas(){
+  getNotas() {
     return this.http.get(this.url)
       .map(res => res.json());
   }
 
-  getNota(id){
+  getNota(id) {
     return this.http.get(this.getNotaUrl(id))
       .map(res => res.json());
   }
 
-  addNota(nota){
-    return this.http.post(this.url, JSON.stringify(nota))
+  getStatus() {
+    return this.http.get(`${this.url}/status`)
       .map(res => res.json());
   }
 
-  updateNota(nota){
-    return this.http.put(this.getNotaUrl(nota.id), JSON.stringify(nota))
+  addNota(nota: Nota) {
+    return this.http.post(this.url, nota.getMapped())
       .map(res => res.json());
   }
 
-  deleteNota(id){
+  updateNota(nota) {
+    return this.http.put(this.getNotaUrl(nota.id), nota.getMapped())
+      .map(res => res.json());
+  }
+
+  deleteNota(id) {
     return this.http.delete(this.getNotaUrl(id))
       .map(res => res.json());
   }
 
-  private getNotaUrl(id){
+  searchNota(search: string) {
+    return this.http.get(`${this.url}/search/${search}`)
+      .map(res => res.json());
+
+  }
+
+  private getNotaUrl(id) {
     return this.url + "/" + id;
   }
 }

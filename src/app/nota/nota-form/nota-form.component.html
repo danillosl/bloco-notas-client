@@ -2,6 +2,7 @@
   {{titulo}}</h1>
 <form class="form-horizontal">
 
+  <div *ngFor="let erro of erros" class="alert alert-danger" role="alert">{{erro}}</div>
 
   <div class="form-group">
     <label class=" control-label" for="Titulo">Titulo</label>
@@ -11,7 +12,7 @@
 
   <div class="form-group">
     <label class="control-label" for="Conteudo">Conteudo</label>
-    <textarea class="form-control" id="Conteudo" name="Conteudo" [(ngModel)]="nota.nota"></textarea>
+    <textarea rows="12" cols="50" class="form-control" id="Conteudo" name="Conteudo" [(ngModel)]="nota.nota"></textarea>
   </div>
 
   <div class="form-group">
@@ -25,14 +26,20 @@
 
   <div class="form-group">
     <label class="checkbox-inline" for="Privada-0">
-      <input type="checkbox" name="Privada" id="Privada-0" value="1" [(ngModel)]="nota.isPublica" [checked]="nota.isPublica"> nota é publica?
+      <input type="checkbox" name="Privada" id="Privada-0" [(ngModel)]="nota.isPublica" [checked]="nota.isPublica"> nota é publica?
     </label>
+
+    <div *ngIf="!nota.isPublica" class="alert alert-danger" role="alert">
+      Notas privadas não serão listadas na página principal!!!
+    </div>
+
+
   </div>
 
   <div class="text-center">
-    <button type="button" (click)="print()" class="btn btn-success">Salvar</button>
-    <button type="button" class="btn btn-danger">Cancelar</button>
-
+    <button *ngIf="nota.id" type="button" class="btn btn-info" [routerLink]="['/notas/visualizar', nota.id]">Voltar</button>
+    <button type="button" (click)="salvar()" class="btn btn-success">Salvar</button>
+    <button type="button" class="btn btn-danger" [routerLink]="['notas']">Cancelar</button>
   </div>
 
 </form>

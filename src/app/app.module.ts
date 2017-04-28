@@ -9,13 +9,15 @@ import { NotaFormComponent } from './nota/nota-form/nota-form.component';
 
 import {NotaService} from './nota/nota.service';
 
-import { routing } from './app.routes'
+import { routing } from './app.routes';
+import { NotaViewComponent } from './nota/nota-view/nota-view.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     NotaComponent,
-    NotaFormComponent
+    NotaFormComponent,
+    NotaViewComponent
   ],
   imports: [
     BrowserModule,

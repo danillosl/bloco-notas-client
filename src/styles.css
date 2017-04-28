@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+.fab-bottom-left {
+    position: fixed;
+    bottom: 50px;
+    left: 50px;
+}
+.fab-bottom-right {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+}
+
+.fab-top-left {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+a:hover {
+ cursor:pointer;
+}
